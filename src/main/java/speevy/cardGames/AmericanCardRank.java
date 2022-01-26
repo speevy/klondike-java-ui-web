@@ -21,4 +21,26 @@ public enum AmericanCardRank implements CardRank {
     
     private String name;
     private int index;
+
+    @Override
+	public boolean isImmediatePreviousOf(CardRank other) {
+		return (other instanceof AmericanCardRank otherAmerican) 
+				&& (otherAmerican.getIndex() == index + 1);
+	}
+
+    @Override
+	public boolean isImmediateNextOf(CardRank other) {
+		return (other instanceof AmericanCardRank otherAmerican) 
+				&& (otherAmerican.getIndex() + 1 == index);
+	}
+
+    @Override
+	public boolean isFirst() {
+		return equals(ACE);
+	}
+
+    @Override
+	public boolean isLast() {
+		return equals(KING);
+	}
 }

@@ -31,7 +31,7 @@ public class Pile implements CardOrigin, CardDestination {
 		} else {
 			final Card topCard = cards.get(cards.size() - 1);
 			if (	card.suit().equals(topCard.suit())
-					&& card.rank().getIndex() == topCard.rank().getIndex() + 1) {
+					&& card.rank().isImmediateNextOf(topCard.rank())) {
 				cards.add(card);
 			} else {
 				throw new WrongCardPileException();

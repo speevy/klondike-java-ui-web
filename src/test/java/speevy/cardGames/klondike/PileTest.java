@@ -128,9 +128,9 @@ public class PileTest {
 	
 	@Test
 	void pileUndoPoke() {
-		List<Collection<Card>> cards = Stream.of(ACE, TWO, THREE)
+		List<List<Card>> cards = Stream.of(ACE, TWO, THREE)
 				.map(rank -> new Card(HEARTS, rank))
-				.map(x -> (Collection<Card>) List.of(x))
+				.map(List::of)
 				.toList();
 		
 		final Pile pile = new Pile();
