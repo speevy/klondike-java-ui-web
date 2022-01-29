@@ -99,6 +99,7 @@ public class FoundationTest {
 		assertEquals(2, status.visible().size());
 	}
 	
+	@SuppressWarnings("deprecation")
 	private Foundation createTestFoundation(int hiddenNumber, int visibleStart, int visibleNumber) {
 		return new Foundation(createRandomCardSet(hiddenNumber),
 				generateDescendingAlColorStarting(visibleStart, visibleNumber));
@@ -116,7 +117,7 @@ public class FoundationTest {
 			new Card(HEARTS, FIVE)
 			);  
 
-	private Collection<Card> generateDescendingAlColorStarting(int start, int number) {
+	Collection<Card> generateDescendingAlColorStarting(int start, int number) {
 		return alternating.subList(start, start + number);
 	}
 

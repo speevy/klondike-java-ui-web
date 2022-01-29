@@ -30,6 +30,7 @@ public class PileTest {
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	private Pile createTestPile() {
 		final Pile pile = new Pile();
 		pile.addCards(List.of(

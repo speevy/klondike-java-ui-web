@@ -84,7 +84,8 @@ public class Pile implements CardOrigin, CardDestination {
 	/**
 	 * Method used to prepare test cases, do not use for other purposes.
 	 */
-	protected void addCards(Collection<Card> toAdd) {
+	@Deprecated
+	void addCards(Collection<Card> toAdd) {
 		cards.addAll(toAdd);
 	}
 	

@@ -9,7 +9,6 @@ import speevy.cardGames.cardContainers.CardOrigin;
 /**
  * The deck of the game, consisting in two piles: the stock and the waste.
  * The waste also acts as a CardOrigin.
- *
  */
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Deck implements CardOrigin {
@@ -100,7 +99,7 @@ public class Deck implements CardOrigin {
 		}
 		
 		final boolean flipped = !takeCausedFlip.isEmpty() 
-				&& takeCausedFlip.get(takeCausedFlip.size() - 1);
+				&& takeCausedFlip.remove(takeCausedFlip.size() - 1);
 		
 		if (flipped && waste.isEmpty() && !stock.isEmpty()) {
 			Collections.reverse(stock);

@@ -81,8 +81,9 @@ public class Foundation implements CardOrigin, CardDestination {
 
 	@Override
 	public void undoPeek(Collection<Card> cards) {
-		if (visible.size() == 1 && !peekCausedFlip.isEmpty() 
-				&& peekCausedFlip.get(peekCausedFlip.size() - 1)) {
+		if (!peekCausedFlip.isEmpty() 
+				&& peekCausedFlip.remove(peekCausedFlip.size() - 1)
+				&& visible.size() == 1) {
 			hidden.add(visible.remove(0));
 		}
 		
@@ -103,6 +104,7 @@ public class Foundation implements CardOrigin, CardDestination {
 	/**
 	 * Constructor used to prepare test cases, do not use for other purposes.
 	 */
+	@Deprecated
 	Foundation(Collection<Card> hidden, Collection<Card> visible) {
 		super();
 		this.hidden.addAll(hidden);

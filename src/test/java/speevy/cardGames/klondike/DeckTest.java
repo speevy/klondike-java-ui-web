@@ -184,11 +184,34 @@ public class DeckTest {
 		final Collection<Card> cards = deck.peek(1);
 		DeckStatus status1 = deck.getStatus();
 		deck.take();
+		DeckStatus status2 = deck.getStatus();
+		deck.take();
+
+		deck.undoTake();
+		assertEquals(status2, deck.getStatus());
 		
 		deck.undoTake();
 		assertEquals(status1, deck.getStatus());
 		
 		deck.undoPeek(cards);
 		assertEquals(status0, deck.getStatus());		
+	}
+	
+	@Test
+	void deckUndoTakeFlip() {
+		final Deck deck = createTestDeck();
+		final List<DeckStatus> statusHistory = new ArrayList<>();
+
+		do {
+			statusHistory.add(deck.getStatus());
+			deck.take();
+		} while (deck.stock.size() != 4);
+		
+		Collections.reverse(statusHistory);
+		
+		for (var status : statusHistory) {
+			deck.undoTake();
+			assertEquals(status, deck.getStatus());
+		}
 	}
 }
