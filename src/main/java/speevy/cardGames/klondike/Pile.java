@@ -23,7 +23,7 @@ public class Pile implements CardOrigin, CardDestination {
 		final Card card = cardsToPoke.stream().findFirst().get();
 		
 		if (cards.isEmpty()) {
-			if (card.rank().equals(AmericanCardRank.ACE)) {
+			if (card.rank().isFirst()) {
 				cards.add(card);
 			} else {
 				throw new WrongCardPileException();
