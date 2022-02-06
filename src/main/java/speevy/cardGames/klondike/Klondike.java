@@ -1,21 +1,30 @@
 package speevy.cardGames.klondike;
 
 import java.util.*;
+import java.util.function.*;
 
-import lombok.extern.log4j.Log4j2;
+import org.slf4j.*;
+
 import speevy.cardGames.*;
 import speevy.cardGames.cardContainers.*;
 import speevy.cardGames.klondike.Deck.DeckStatus;
 import speevy.cardGames.klondike.Foundation.FoundationStatus;
 import speevy.cardGames.klondike.Pile.PileStatus;
 
-@Log4j2
 public class Klondike {
 
 	private final Deck deck;
 	private final List<Pile> piles;
 	private final List<Foundation> foundations;
 	private final List<Action> actionLog = new ArrayList<>();
+	
+	private static final Logger log = LoggerFactory.getLogger(Klondike.class);
+
+	private void debug(Supplier<String> msg) {
+		if (log.isErrorEnabled()) {
+			log.debug(msg.get());
+		}
+	}
 	
 	private enum ActionType {
 		MOVE_CARDS,
@@ -94,7 +103,7 @@ public class Klondike {
 			throw e;
 		}
 		actionLog.add(new Action(ActionType.MOVE_CARDS, origin, destination, number));
-		log.debug(() -> "Action: move from " + from + " to " + to + " cards " + cards);
+		debug(() -> "Action: move from " + from + " to " + to + " cards " + cards);
 	}
 
 	private CardDestination getDestination(final CardHolder to) {
@@ -147,12 +156,12 @@ public class Klondike {
 	public void take() {
 		deck.take();
 		actionLog.add(Action.take());
-		log.debug(() -> "Action: Take");
+		debug(() -> "Action: Take");
 	}
 
 	public void undo() {
 		if (actionLog.isEmpty()) {
-			log.warn(() -> "Undo called, but no logged actions found");
+			log.warn("Undo called, but no logged actions found");
 			return;
 		}
 		
@@ -160,11 +169,11 @@ public class Klondike {
 		
 		if (action.type().equals(ActionType.TAKE)) {
 			deck.undoTake();
-			log.debug(() -> "Undo take");
+			log.debug("Undo take");
 		} else {
 			final Collection<Card> cards = action.destination().undoPoke(action.cards());
 			action.origin().undoPeek(cards);
-			log.debug(() -> "Undo move from " + getCardHolder(action.origin()) + 
+			debug(() -> "Undo move from " + getCardHolder(action.origin()) + 
 					" to " + getCardHolder(action.destination()) + " cards " + cards);
 		}
 	}

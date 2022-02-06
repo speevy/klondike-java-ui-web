@@ -3,20 +3,22 @@ package speevy.cardGames.klondike.ui.web;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
+import org.slf4j.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import speevy.cardGames.klondike.Klondike.*;
 import speevy.cardGames.klondike.KlondikeService;
 
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
-@Log4j2
 public class KlondikeController {
+
+	
+	private static final Logger log = LoggerFactory.getLogger(KlondikeController.class);
 
 	private final KlondikeService service;
 	
