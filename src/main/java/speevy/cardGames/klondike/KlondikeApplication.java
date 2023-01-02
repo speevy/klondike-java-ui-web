@@ -1,17 +1,19 @@
 package speevy.cardGames.klondike;
 
+import org.springframework.aot.hint.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.*;
-import org.springframework.nativex.hint.*;
+import org.springframework.lang.Nullable;
+
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 
+import lombok.SneakyThrows;
 import speevy.cardGames.*;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"speevy.cardGames"})
-@TypeHint(types = {PropertyNamingStrategies.class}, fields = {@FieldHint(name="SNAKE_CASE")})
 public class KlondikeApplication {
 
 	public static void main(String[] args) {
@@ -21,5 +23,14 @@ public class KlondikeApplication {
 	@Bean
 	Cards cards() {
 		return new AmericanCards();
+	}
+	
+	static class Registrar implements RuntimeHintsRegistrar {
+
+		@Override
+		@SneakyThrows
+		public void registerHints(RuntimeHints hints, @Nullable ClassLoader classLoader) {
+			hints.reflection().registerField(PropertyNamingStrategies.class.getField("SNAKE_CASE"));
+		}
 	}
 }

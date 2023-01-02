@@ -36,7 +36,7 @@ public class WebTest {
 	private Klondike spy;
 	
 	@BeforeEach
-	private void prepareMocks() {
+	void prepareMocks() {
 		spy = Mockito.spy(createTestKlondike());
 		
 		when(mockRepo.get("invalid")).thenReturn(Optional.empty());
